@@ -2,48 +2,37 @@
 
 {% block sidebar %}
   <div class="col-md-3">
-       <ul class="list-group">
-            {% for category in categories %}
-                <a href="{% url 'category' category.pk %}" class="list-group-item">{{ category.title }}</a>
-            {% endfor %}
-       </ul>
+    <ul class="list-group">
+      {% for category in categories %}
+        <li class="list-group-item"><a href="{% url 'category' category.pk %}">{{ category.title }}</a></li>
+      {% endfor %}
+    </ul>
   </div>
 {% endblock %}
 
 {% block content %}
-<div class="col-md-3">
-  {% for items in news %}
-          <div class="card text-center">
-            <div class="card mt-3 mb-3">
-              <div class="card-header">
-               Категория: <a href="{% url 'category' items.category.pk %}"  {{ items.category }}
-              </div>
-              <div class="card-body">
-                <div class="media">
-                {% if items.photo %}
-                  <img src="{{ items.photo.url }}" alt="" width="300" height="300">
-                {% else %}
-                  <img src="https://loremflickr.com/300/300" alt="">
-                {% endif %}
-                </div>
-                <h5 class="card-title">{{ items.title }}</h5>
-                <p class="card-text">{{ items.content }}</p>
-                <a href="#" class="btn btn-primary">read more...</a>
-              </div>
-              <div class="card-footer text-body-secondary">
-                {{ items.created_at|date:"Y:m:d H:i" }}
-              </div>
-            </div>
-          {% endfor %}
+  <div class="col-md-9">
+    {% for items in news %}
+      <div class="card text-center mt-3 mb-3">
+        <div class="card-header">
+          Категория: <a href="{% url 'category' items.category.pk %}">{{ items.category }}</a>
+        </div>
+        <div class="card-body">
+          <div class="media">
+            {% if items.photo %}
+              <img src="{{ items.photo.url }}" alt="" width="300" height="300">
+            {% else %}
+              <img src="https://loremflickr.com/300/300" alt="">
+            {% endif %}
           </div>
-     </div>
+          <h5 class="card-title">{{ items.title }}</h5>
+          <p class="card-text">{{ items.content }}</p>
+          <a href="#" class="btn btn-primary">read more...</a>
+        </div>
+        <div class="card-footer text-muted">
+          {{ items.created_at|date:"Y:m:d H:i" }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}
-
-
-
-
-
-
-
-
-

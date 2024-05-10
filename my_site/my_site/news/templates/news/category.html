@@ -8,7 +8,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="">
+      <div class="container">
         <a class="navbar-brand" href="/">Новостной сайт</a>
         <a class="navbar-brand" href="#">Добавление новости</a>
         <a class="navbar-brand" href="#">Админка</a>
@@ -17,36 +17,36 @@
     <div class="container mt-3">
       <h1>{{ category }}</h1>
       <div class="row">
-        <div class="card">
+        <div class="col-md-3">
           <ul class="list-group">
             {% for category in categories %}
-  <a href="{% url 'category' category.pk %}"  class="list-group-item">{{ category.title }}</a>
+              <li class="list-group-item"><a href="{% url 'category' category.pk %}">{{ category.title }}</a></li>
             {% endfor %}
           </ul>
+        </div>
+        <div class="col-md-9">
           {% for items in news %}
-          <div class="card text-center">
-            <div class="card mt-3 mb-3">
+            <div class="card text-center mt-3 mb-3">
               <div class="card-header">
-                Категория: <a href="{% url 'category' items.category.pk %}"  {{ items.category }}
+                Категория: <a href="{% url 'category' items.category.pk %}">{{ items.category }}</a>
               </div>
               <div class="card-body">
                 <div class="media">
-                {% if items.photo %}
-                  <img src="{{ items.photo.url }}" alt="" width="300" height="300">
-                {% else %}
-                  <img src="https://loremflickr.com/300/300" alt="">
-                {% endif %}
+                  {% if items.photo %}
+                    <img src="{{ items.photo.url }}" alt="" width="300" height="300">
+                  {% else %}
+                    <img src="https://loremflickr.com/300/300" alt="">
+                  {% endif %}
                 </div>
                 <h5 class="card-title">{{ items.title }}</h5>
                 <p class="card-text">{{ items.content }}</p>
                 <a href="#" class="btn btn-primary">read more...</a>
               </div>
-              <div class="card-footer text-body-secondary">
+              <div class="card-footer text-muted">
                 {{ items.created_at|date:"Y:m:d H:i" }}
               </div>
             </div>
           {% endfor %}
-          </div>
         </div>
       </div>
     </div>
