@@ -1,7 +1,14 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import DetailView
 
 from . import models
+from .models import News
+
+
+class NewsDetailView(DetailView):
+    model = News
+    template_name = 'news_detail.html'
+    context_object_name = 'news'
 
 
 def index(request):

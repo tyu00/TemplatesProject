@@ -12,25 +12,25 @@
 
 {% block content %}
   <div class="col-md-9">
-    {% for items in news %}
+    {% for news_item in news %}
       <div class="card text-center mt-3 mb-3">
         <div class="card-header">
-          Категория: <a href="{% url 'category' items.category.pk %}">{{ items.category }}</a>
+          Категория: <a href="{% url 'category' news_item.category.pk %}">{{ news_item.category }}</a>
         </div>
         <div class="card-body">
           <div class="media">
-            {% if items.photo %}
-              <img src="{{ items.photo.url }}" alt="" width="300" height="300">
+            {% if news_item.photo %}
+              <img src="{{ news_item.photo.url }}" alt="" width="300" height="300">
             {% else %}
               <img src="https://loremflickr.com/300/300" alt="">
             {% endif %}
           </div>
-          <h5 class="card-title">{{ items.title }}</h5>
-          <p class="card-text">{{ items.content }}</p>
-          <a href="#" class="btn btn-primary">read more...</a>
+          <h5 class="card-title"><a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a></h5>
+          <p class="card-text">{{ news_item.content }}</p>
+          <a href="{{ news.items.get_absolute_url }}" class="btn btn-primary">read more...</a>
         </div>
         <div class="card-footer text-muted">
-          {{ items.created_at|date:"Y:m:d H:i" }}
+          {{ news_item.created_at|date:"Y:m:d H:i" }}
         </div>
       </div>
     {% endfor %}
